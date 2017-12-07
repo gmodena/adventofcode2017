@@ -1,9 +1,11 @@
+from copy import copy
+
 if __name__ == '__main__':
     banks = list(map(int, input().split()))
 
     states = []
     while banks not in states:
-        states.append(banks[:])
+        states.append(copy(banks))
         blocks = max(banks)
         max_blocks_index = banks.index(blocks)
         banks[max_blocks_index] = 0
