@@ -5,7 +5,7 @@ if __name__ == '__main__':
     x = 0
     y = 0
     z = 0
-    distance = []
+    distance = 0
     for move in grid:
         if move == 's':
             x -= 1
@@ -25,8 +25,6 @@ if __name__ == '__main__':
         elif move == 'se':
             y -= 1
             z += 1
-
-
-        distance.append(int((abs(x) + abs(y) + abs(z)) / 2))
+        distance = max(distance, int((abs(x) + abs(y) + abs(z)) / 2))
     print(int((abs(x) + abs(y) + abs(z)) / 2))
-    print(max(distance))
+    print(distance)
