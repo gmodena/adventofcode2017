@@ -39,6 +39,8 @@ while True: # 32
             g = e # 18
             g -= b # 19
             if g == 0: # 20
+                # The while loop reduces to testing
+                # if b == e * d
                 inner_g = False
         d += 1 # 21
         g = d # 22
@@ -53,4 +55,20 @@ while True: # 32
         break # 30 - jump out
     b -= 17 # 31
 
+## part 1
 print(count)
+
+## part 2
+## same complexiy to of the original asm
+c = 123700
+h = 0
+
+for b in range(106700, c+1, 17):
+    f = 1
+    for d in range(2, b+1):
+        for e in range(2, b+1):
+            if b == e * d:
+                f = 0
+    if f == 0:
+        h += 1
+print(h)
