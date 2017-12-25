@@ -1,95 +1,86 @@
-tape = []
-cur = 0
+class TuringMachine:
+    def __init__(self):
+        self.tape = [0]
+        self.cur = 0
+        self.states = {}
+        self.states['a'] = self.state_a
+        self.states['b'] = self.state_b
+        self.states['c'] = self.state_c
+        self.states['d'] = self.state_d
+        self.states['e'] = self.state_e
+        self.states['f'] = self.state_f
+        self.next_state = 'a'
 
-def state_a():
-    global tape, cur
-    next_state = None
-    if tape[cur] == 0:
-        tape[cur] = 1
-        cur += 1
-        next_state = 'b'
-    else:
-        tape[cur] = 0
-        cur += 1
-        next_state = 'c'
-    return next_state
+    def state_a(self):
+        if self.tape[self.cur] == 0:
+            self.tape[self.cur] = 1
+            self.cur += 1
+            self.next_state = 'b'
+        else:
+            self.tape[self.cur] = 0
+            self.cur += 1
+            self.next_state = 'c'
 
-def state_b():
-	global cur, tape
-	next_state = None
-	if tape[cur] == 0:
-		cur -= 1
-		next_state = 'a'
-	else:
-		tape[cur] = 0
-		cur += 1
-		next_state = 'd'
-	return next_state
+    def state_b(self):
+        if self.tape[self.cur] == 0:
+            self.cur -= 1
+            self.next_state = 'a'
+        else:
+            self.tape[self.cur] = 0
+            self.cur += 1
+            self.next_state = 'd'
 
-def state_c():
-    global cur, tape
-    next_state = None
-    if tape[cur] == 0:
-        tape[cur] = 1
-        cur += 1
-        next_state = 'd'
-    else:
-        cur += 1
-        next_state = 'a'
-    return next_state
+    def state_c(self):
+        if self.tape[self.cur] == 0:
+            self.tape[self.cur] = 1
+            self.cur += 1
+            self.next_state = 'd'
+        else:
+            self.cur += 1
+            self.next_state = 'a'
 
-def state_d():
-    global cur, tape
-    next_state = None
-    if tape[cur] == 0:
-        tape[cur] = 1
-        cur -= 1
-        next_state = 'e'
-    else:
-        tape[cur] = 0
-        cur -= 1
-        next_state = 'd'
-    return next_state
+    def state_d(self):
+        if self.tape[self.cur] == 0:
+            self.tape[self.cur] = 1
+            self.cur -= 1
+            self.next_state = 'e'
+        else:
+            self.tape[self.cur] = 0
+            self.cur -= 1
+            self.next_state = 'd'
 
-def state_e():
-    global cur, tape
-    next_state = None
-    if tape[cur] == 0:
-        tape[cur] = 1
-        cur += 1
-        next_state = 'f'
-    else:
-        cur -= 1
-        next_state = 'b'
-    return next_state
+    def state_e(self):
+        if self.tape[self.cur] == 0:
+            self.tape[self.cur] = 1
+            self.cur += 1
+            self.next_state = 'f'
+        else:
+            self.cur -= 1
+            self.next_state = 'b'
 
-def state_f():
-    global cur, tape
-    next_state = None
-    if tape[cur] == 0:
-        tape[cur] = 1
-        cur += 1
-        next_state = 'a'
-    else:
-        cur += 1
-        next_state = 'e'
-    return next_state
+    def state_f(self):
+        if self.tape[self.cur] == 0:
+            self.tape[self.cur] = 1
+            self.cur += 1
+            self.next_state = 'a'
+        else:
+            self.cur += 1
+            self.next_state = 'e'
 
-states = {}
-states['a'] = state_a
-states['b'] = state_b
-states['c'] = state_c
-states['d'] = state_d
-states['e'] = state_e
-states['f'] = state_f
-
+    def run(self, steps=0):
+        self.tape = [0] * steps
+        self.cur = steps // 2
+        for step in range(steps):
+            if self.cur < 0:
+                self.tape.insert(0, 0)
+            elif self.cur >= len(self.tape):
+                self.tape.append(0)
+            self.states[self.next_state]()
+    def checksum(self):
+        return(sum(self.tape))
 if __name__ == '__main__':
-	steps = 12_368_930
-	tape = [0] * 1_000_000_000
-	cur = 1_000_000_00 // 2
-	next_state = 'a'
-	for step in range(steps):
-		next_state = states[next_state]()
-	print(sum(tape))
+    tm = TuringMachine()
+    tm.run(steps=12_368_930)
+    print(tm.checksum())
 
 
