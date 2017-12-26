@@ -9,8 +9,9 @@ if __name__ == '__main__':
     x = route[y].index('|')
     move = 'down'
     letters = []
-    steps = 1
+    steps = 0
     while True:
+        steps += 1
         if move == 'down':
             y += 1
         elif move == 'up':
@@ -23,17 +24,16 @@ if __name__ == '__main__':
         if route[y][x] in 'ABCDEFGHIJKLMNOPQRSTUVYWZ':
             letters.append(route[y][x])
         elif route[y][x] == '+':
-            if x > 0 and move != 'right' and route[y][x-1] != ' ':
+            if move != 'right' and route[y][x-1] != ' ':
                 print(route[y][x-1])
                 move = 'left'
-            elif x < len(route[y]) and move != 'left' and route[y][x+1] != ' ':
+            elif move != 'left' and route[y][x+1] != ' ':
                 move = 'right'
-            elif y > 0 and move != 'down' and route[y-1][x] != ' ':
+            elif move != 'down' and route[y-1][x] != ' ':
                 move = 'up'
-            elif y < len(route) and move != 'up':
+            elif move != 'up':
                 move = 'down'
         elif route[y][x] == ' ':
             break
-        steps += 1
     print(''.join([l for l in letters]))
     print(steps)
