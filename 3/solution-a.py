@@ -1,6 +1,12 @@
 from math import sqrt
-if __name__ == '__main__':
-    end = int(input())
+
+def closed_form(end):
+    # TODO(gmodena): this works only if n
+    # and end are on the same arm of the spiral
     n = round(sqrt(end))
     distance = n*n - end
-    print(n - distance -1)
+    return n - distance -1
+
+if __name__ == '__main__':
+    end = int(input())
+    print(closed_form(end))
